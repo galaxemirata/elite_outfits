@@ -26,6 +26,7 @@ function AppContent() {
     <div className="App">
 
       <header className='App-header'>
+        <img src="" alt="" />
         <h1><b>Elite Outfits</b></h1>
       </header>
 
