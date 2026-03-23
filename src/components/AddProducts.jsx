@@ -3,11 +3,15 @@ import { useState } from 'react'
 import axios from 'axios'
 
 
+
 const AddProducts = () => {
-    const[product_name,setProduct_name]=useState()
+  const[product_name,setProduct_name]=useState()
   const[product_description,setProduct_description]=useState()
   const[product_cost,setProduct_cost]=useState()
   const[product_photo,setProduct_photo]=useState()
+  const [category, setCategory] = useState('');
+  
+ 
 
   const[loading,setLoading]=useState()
   const[success,setSuccess]=useState()
@@ -23,17 +27,22 @@ const AddProducts = () => {
         data.append("product_description",product_description)
         data.append("product_cost",product_cost)
         data.append("product_photo",product_photo)
+        data.append("category",category)
 
 
         const response=await axios.post("http://collins.alwaysdata.net/api/addproducts",data)
 
       setLoading("")
       setSuccess(response.data.message)
+      
+
 
       setProduct_name("")
       setProduct_description("")
       setProduct_cost("")
       setProduct_photo("")
+      setCategory("")
+      
 
       }
 
@@ -56,10 +65,12 @@ const AddProducts = () => {
 
 
   }
+  
 
   
 
   return (
+    
     <div className='row justify-content-center'>
       <div className='col-md-6 card shadow'>
         <h1>Upload Products</h1>
@@ -82,7 +93,23 @@ const AddProducts = () => {
           <br />
           <input type="file" className='form-control' accept='image/*' onChange={(e)=>setProduct_photo(e.target.files[0])}/>
           <br />
-          <input type="submit" value={"Upload product"} className='text-white bg-info form-control'/>
+  
+          <br />
+          <br />
+          <select 
+  className='form-control' 
+  value={category} 
+  onChange={(e)=>setCategory(e.target.value)}
+>
+  <option value="">Select Category</option>
+  <option value="men">Men</option>
+  <option value="women">Women</option>
+  <option value="kids">Kids</option>
+  <option value="shoes">unisex</option>
+</select>
+<br />
+<br />
+           <input type="submit" value={"Upload product"} className='text-white bg-info form-control'/>
           <br />
 
         </form>

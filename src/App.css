@@ -66,9 +66,42 @@
   width: 100%;
   height: 200px;
   object-fit: fill;
+  
+  
 }
 
 .product_img:hover{
   transform: scale(1.1);
   transition: 2s;
 }
+
+.wearsnav{
+  text-decoration: none;
+  color: black;
+  margin-right: 80px;
+  margin-left: 80px;
+  
+}
+
+.wearsnav:hover{
+  color: hotpink;
+
+
+}
+
+.hot{
+  letter-spacing: 50px;
+  color: silver;
+  text-align: center;
+  
+}
+
+.about{
+  color: cyan;
+  text-decoration: overline;
+}
+
+.footersection{
+  background-color: black;
+}
+
