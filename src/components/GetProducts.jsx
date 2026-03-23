@@ -4,6 +4,8 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
+import ContactUs from './ContactUs'
+
 
 
 const Getproducts = () => {
@@ -155,6 +157,14 @@ const filteredProducts = products.filter(product =>
 
      
     </div>
+
+    <ContactUs/>
+
+    
+
+
+
+
     </div>
 
   

@@ -12,7 +12,8 @@ import AddProducts from './components/AddProducts';
 import Mpesa from './components/Mpesa';
 
 
-// 🔥 NEW COMPONENT (inside Router)
+
+// NEW COMPONENT (inside Router)
 function AppContent() {
   const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ function AppContent() {
     <div className="App">
 
       <header className='App-header'>
-        <img src="" alt="" />
+
         <h1><b>Elite Outfits</b></h1>
       </header>
 
@@ -50,6 +51,8 @@ function AppContent() {
         </form>
       </nav>
 
+      
+
       <Routes>
         <Route path='/' element={<GetProducts />} />
         <Route path='/addproducts' element={<AddProducts />} />
@@ -58,6 +61,9 @@ function AppContent() {
         <Route path='/mpesa' element={<Mpesa />} />
         
       </Routes>
+
+
+
 
     </div>
   );
