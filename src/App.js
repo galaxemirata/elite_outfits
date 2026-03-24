@@ -17,16 +17,24 @@ function AppContent() {
   const [likedImages, setLikedImages] = useState([]);
 
   // LIKE FUNCTION
-  const handleLike = (image) => {
-    setLikedImages((prev) => {
-      const exists = prev.find((img) => img.id === image.id);
-      if (exists) {
-        // Remove if already liked
-        return prev.filter((img) => img.id !== image.id);
-      }
-      return [...prev, image];
-    });
-  };
+  
+  const handleLike = (product) => {
+  setLikedImages((prev) => {
+    const alreadyLiked = prev.find(
+      (item) => item.product_id === product.product_id
+    );
+
+    if (alreadyLiked) {
+      // remove (unlike)
+      return prev.filter(
+        (item) => item.product_id !== product.product_id
+      );
+    } else {
+      // add (like)
+      return [...prev, product];
+    }
+  });
+};
 
   return (
     <div className="App">
