@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { useState } from 'react';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -10,67 +10,71 @@ import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import AddProducts from './components/AddProducts';
 import Mpesa from './components/Mpesa';
+import LikedImages from './components/LikedImages'; // Show liked products
 
-
-
-// NEW COMPONENT (inside Router)
 function AppContent() {
   const [searchTerm, setSearchTerm] = useState('');
-  const navigate = useNavigate();
+  const [likedImages, setLikedImages] = useState([]);
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    navigate(`/?search=${searchTerm}`);
+  // LIKE FUNCTION
+  const handleLike = (image) => {
+    setLikedImages((prev) => {
+      const exists = prev.find((img) => img.id === image.id);
+      if (exists) {
+        // Remove if already liked
+        return prev.filter((img) => img.id !== image.id);
+      }
+      return [...prev, image];
+    });
   };
 
   return (
     <div className="App">
-
       <header className='App-header'>
-
         <h1><b>Elite Outfits</b></h1>
       </header>
 
       <nav className='nav'>
         <Link to='/' className='navlink'>Get Products</Link>
         <Link to='/addproducts' className='navlink'>Add Products</Link>
+        <Link to='/liked' className='navlink'>Liked Images</Link>
         <Link to='/signin' className='navlink'>SignIn</Link>
         <Link to='/signup' className='navlink'>SignUp</Link>
 
-        {/* ✅ SEARCH BAR */}
-        <form onSubmit={handleSearch} style={{ marginLeft: 'auto', display: 'flex', gap: '5px' }}>
-          <input
-            type="text"
-            placeholder="search here.."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="form-control"
-           
-          />
-          <button type="submit" className="btn btn-primary">Search</button>
-        </form>
+        {/* REAL-TIME SEARCH BAR */}
+        <input
+          type="text"
+          placeholder="search here"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)} // live update
+          className="form-control ms-auto"
+          style={{ width: '200px' }}
+        />
       </nav>
 
-      
-
       <Routes>
-        <Route path='/' element={<GetProducts />} />
+        {/* Pass searchTerm to GetProducts */}
+        <Route
+          path='/'
+          element={
+            <GetProducts
+              handleLike={handleLike}
+              likedImages={likedImages}
+              searchTerm={searchTerm} // <-- real-time search prop
+            />
+          }
+        />
         <Route path='/addproducts' element={<AddProducts />} />
         <Route path='/signin' element={<SignIn />} />
         <Route path='/signup' element={<SignUp />} />
         <Route path='/mpesa' element={<Mpesa />} />
-        
+        <Route path='/liked' element={<LikedImages likedImages={likedImages} />} />
       </Routes>
-
-
-
-
     </div>
   );
 }
 
-
-// 🔥 ROOT COMPONENT
+// ROOT COMPONENT
 function App() {
   return (
     <Router>
